@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode, useCallback, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import LineChart from 'react-svg-line-chart';
 import { PrimaryButton } from '../../components/Button';
 import Logo from '../../components/Header/Logo';
 import { cx } from '../../utils/utils';
@@ -106,6 +107,9 @@ export default function Dashboard() {
                   <Stat name="Visit duration" amount="2:54" difference={-3} />
                 </div>
               </div>
+            </div>
+            <div className="shadow-sm px-4 py-6 w-full bg-white dark:bg-gray-700">
+              <Chart />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
               <Sources
@@ -601,5 +605,63 @@ function TimeSelector() {
         </>
       )}
     </Menu>
+  );
+}
+
+function Chart() {
+  const [{ tooltipTrigger, point }, setTooltipData] = useState<{
+    tooltipTrigger?: DOMRect | null;
+    point?: { x: number; y: number } | null;
+  }>({});
+  const handlePointHover = useCallback((point, event) => {
+    setTooltipData({
+      tooltipTrigger: event ? (event.target as SVGCircleElement).getBoundingClientRect() : null,
+      point: event ? point : null,
+    });
+  }, []);
+  return (
+    <div className="relative">
+      {tooltipTrigger && point && (
+        <span
+          className="fixed rounded shadow-lg px-2 py-1 bg-gray-100 text-brand-500 font-semibold -mt-8"
+          style={{
+            top: tooltipTrigger.top + 'px',
+            left: tooltipTrigger.left - (tooltipTrigger.right - tooltipTrigger.left) / 2 + 'px',
+          }}
+        >
+          {point.y} visits
+        </span>
+      )}
+      {typeof window !== 'undefined' && (
+        <LineChart
+          data={[
+            { x: 1, y: 10 },
+            { x: 2, y: 4 },
+            { x: 3, y: 9 },
+            { x: 4, y: 12 },
+            { x: 5, y: 18 },
+            { x: 6, y: 0 },
+            { x: 7, y: 2 },
+          ]}
+          pointsStrokeColor="#4578C8"
+          pathColor="#4578C8"
+          areaColor="#4578C8"
+          areaVisible
+          gridVisible={false}
+          axisVisible
+          labelsVisible
+          pathVisible
+          pointsVisible
+          pointsRadius={8}
+          labelsStepX={1}
+          labelsFormatX={(x: number) =>
+            new Date(Date.now() + x * 86400000).toString().split(' ')[0]
+          }
+          viewBoxHeight={window.innerHeight}
+          viewBoxWidth={window.innerWidth * 1.5}
+          pointsOnHover={handlePointHover}
+        />
+      )}
+    </div>
   );
 }
