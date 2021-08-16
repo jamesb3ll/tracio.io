@@ -1,16 +1,19 @@
 {
   "name": "tracio.io",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://tracio.io",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "cdk:deploy": "cdk deploy",
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.0",
+    "aws-sdk": "^2.968.0",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -18,12 +21,18 @@
     "react-svg-line-chart": "^2.0.2"
   },
   "devDependencies": {
+    "@aws-cdk/aws-dynamodb": "^1.118.0",
+    "@aws-cdk/core": "^1.118.0",
     "@types/react": "17.0.16",
     "autoprefixer": "^10.3.1",
+    "aws-cdk": "^1.118.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.7",
     "typescript": "4.3.5"
+  },
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   }
 }
