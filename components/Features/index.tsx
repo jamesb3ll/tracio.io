@@ -25,7 +25,7 @@ export default function Features() {
           </h2>
           <p className="text-base text-gray-700 md:text-lg">
             Open source, privacy-focused, scalable and serverless web analytics platform that
-            enables indie developers and startup to track and measure their websites without
+            enables indie developers and startups to track and measure their websites without
             sacrificing privacy and without breaking the bank.
           </p>
         </div>
@@ -49,8 +49,8 @@ export default function Features() {
             }
             title="Quick and easy to install"
           >
-            You don't need much technical knowledge, simply add the script to your site and use our
-            easy-to-use dashboard interface.
+            You don't need much technical knowledge, simply add a single line of code to your site
+            and view our easy-to-use dashboard interface that updates in real-time.
           </Feature>
 
           <Feature
@@ -95,8 +95,63 @@ export default function Features() {
             }
             title="Open-source software"
           >
-            Built using estabilished and well known technologies such as TypeScript, Cloudflare
-            Workers, AWS Timestream, AWS DynamoDB and AWS Lambda.
+            Built using estabilished and well known technologies such as{' '}
+            <a
+              href="https://typescriptlang.org"
+              className="text-brand-700 hover:text-brand-400"
+              rel="noopener noreferrer"
+            >
+              TypeScript
+            </a>
+            {', '}
+            <a
+              href="https://reactjs.org"
+              className="text-brand-700 hover:text-brand-400"
+              rel="noopener noreferrer"
+            >
+              React
+            </a>
+            {', '}
+            <a
+              href="https://nextjs.org"
+              className="text-brand-700 hover:text-brand-400"
+              rel="noopener noreferrer"
+            >
+              Next.js
+            </a>
+            {', '}
+            <a
+              href="https://workers.cloudflare.com"
+              className="text-brand-700 hover:text-brand-400"
+              rel="noopener noreferrer"
+            >
+              Workers
+            </a>
+            {', '}
+            <a
+              href="https://aws.amazon.com/timestream/"
+              className="text-brand-700 hover:text-brand-400"
+              rel="noopener noreferrer"
+            >
+              Timestream
+            </a>
+            {', '}
+            <a
+              href="https://aws.amazon.com/dynamodb/"
+              className="text-brand-700 hover:text-brand-400"
+              rel="noopener noreferrer"
+            >
+              DynamoDB
+            </a>{' '}
+            and{' '}
+            <a
+              href="https://aws.amazon.com/lambda/"
+              className="text-brand-700 hover:text-brand-400"
+              rel="noopener noreferrer"
+            >
+              Lambda
+            </a>
+            .
           </Feature>
 
           <Feature
@@ -113,8 +168,8 @@ export default function Features() {
             }
             title="Fast and lightweight"
           >
-            We don't take up any space in your website code or slow down page load times with our
-            lightweight open-source script.
+            No heavy scripts that will slow down page load times. Our lightweight open-source script
+            can be installed with just a single line of code added to your site.
           </Feature>
           <Feature
             icon={
@@ -135,7 +190,7 @@ export default function Features() {
             }
             title="Transparent pricing"
           >
-            With a free threshold of 5K visits per month, it's perfect for indie developers and
+            With a free threshold of 5000 visits per month, it's perfect for indie developers and
             small companies looking to track their success without breaking the bank.
           </Feature>
           <Feature

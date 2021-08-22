@@ -121,7 +121,7 @@ export async function createUser({
       itemType: 'user',
       name,
       email,
-      isActive: false, // Only active after first login
+      isActive: true,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       ...(teamId && { teamId, GSI1_PK: `team#${teamId}` }),
@@ -217,3 +217,19 @@ export async function claimDomain({ domain, teamId }: { domain: string; teamId: 
     ReturnValues: 'NONE',
   });
 }
+
+/* async function signUpUserFromDashboard({
+  name,
+  email,
+  domain,
+}: {
+  name: string;
+  email: string;
+  domain: string;
+}) {
+  const teamId = 'A6FzVxaqGLarS3i1'; // nanoid()
+  await createTeam({ teamId });
+  await Promise.all([createUser({ name, email, teamId }), claimDomain({ domain, teamId })]);
+  // const token = createLoginToken({ email, teamId });
+  // sendSignUpEmail({ name, email, token })
+} */

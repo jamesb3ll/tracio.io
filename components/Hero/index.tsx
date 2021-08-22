@@ -104,7 +104,7 @@ export default function Hero({ title, subtitle }: { title: ReactNode; subtitle: 
                 md:mb-6
               "
             >
-              Get setup in two easy steps. No sign-up or credit card required.
+              Try it out in two easy steps. No sign-up or credit card required.
             </p>
             <div className="flex items-center justify-center pt-3 pb-10 mx-auto w-full md:w-1/2">
               <h4

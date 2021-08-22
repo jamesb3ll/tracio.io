@@ -608,6 +608,7 @@ function TimeSelector() {
   );
 }
 
+// https://github.com/cedricdelpoux/react-svg-line-chart
 function Chart() {
   const [{ tooltipTrigger, point }, setTooltipData] = useState<{
     tooltipTrigger?: DOMRect | null;
@@ -659,6 +660,7 @@ function Chart() {
           }
           viewBoxHeight={window.innerHeight}
           viewBoxWidth={window.innerWidth * 1.5}
+          // pointsIsHoverOnZone={true}
           pointsOnHover={handlePointHover}
         />
       )}

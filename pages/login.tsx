@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
-import Logo from '../../components/Header/Logo';
+import Logo from '../components/Header/Logo';
 
 export default function Login() {
   const [isSignUp, setSignUp] = useState(false);
