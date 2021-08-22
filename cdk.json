@@ -1,5 +1,5 @@
 {
-  "app": "node scripts/deploy-cdk-stack.js",
+  "app": "node scripts/deploy-cdk-stack.mjs",
   "context": {
     "@aws-cdk/core:enableStackNameDuplicates": "true",
     "aws-cdk:enableDiffNoFail": "true",
