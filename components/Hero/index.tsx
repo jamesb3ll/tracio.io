@@ -1,8 +1,12 @@
 import Link from 'next/link';
+import router from 'next/router';
 import type { ReactNode } from 'react';
+import { useSession } from '../../hooks/auth';
+import { cx } from '../../utils/utils';
 import { PrimaryButton, SecondaryButtonLink } from '../Button';
 
 export default function Hero({ title, subtitle }: { title: ReactNode; subtitle: ReactNode }) {
+  const [user] = useSession();
   return (
     <div className="relative flex flex-col items-center justify-center w-full mx-auto">
       <div className="relative bg-gray-100 w-full">
@@ -34,8 +38,22 @@ export default function Hero({ title, subtitle }: { title: ReactNode; subtitle: 
               {title}
             </h2>
             {subtitle}
-            <form className="flex flex-col items-center w-full mb-4 md:flex-row md:px-16">
-              <div className="flex flex-row w-full md:w-2/3">
+            <form
+              className="flex flex-col items-center w-full mb-4 md:flex-row md:px-16"
+              onSubmit={event => {
+                event.preventDefault();
+                if (user) {
+                  router.push('/dashboard');
+                  return;
+                }
+              }}
+            >
+              <div
+                className={cx(
+                  'flex flex-row transition duration-700 w-full md:w-2/3',
+                  user && 'opacity-0'
+                )}
+              >
                 <div
                   className="
                     flex
@@ -54,7 +72,7 @@ export default function Hero({ title, subtitle }: { title: ReactNode; subtitle: 
                 </div>
                 <input
                   placeholder="yourwebsite.com"
-                  required
+                  required={!user}
                   type="text"
                   className="
                     w-full
@@ -75,8 +93,14 @@ export default function Hero({ title, subtitle }: { title: ReactNode; subtitle: 
                   "
                 />
               </div>
-              <PrimaryButton type="submit" className="flex w-full md:w-1/3">
-                <span className="pr-1">Get started</span>
+              <PrimaryButton
+                type="submit"
+                className={cx(
+                  'transition duration-700 w-full md:w-1/3',
+                  user && '-translate-x-full'
+                )}
+              >
+                <span className="pr-1">{user ? 'Dashboard' : 'Get started'}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -94,7 +118,10 @@ export default function Hero({ title, subtitle }: { title: ReactNode; subtitle: 
               </PrimaryButton>
             </form>
             <p
-              className="
+              className={cx(
+                `
+                transition
+                duration-700
                 max-w-md
                 mb-10
                 text-xs
@@ -102,7 +129,9 @@ export default function Hero({ title, subtitle }: { title: ReactNode; subtitle: 
                 text-gray-700
                 sm:text-sm sm:mx-auto
                 md:mb-6
-              "
+              `,
+                user && 'opacity-0 h-0'
+              )}
             >
               Try it out in two easy steps. No sign-up or credit card required.
             </p>

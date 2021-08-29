@@ -3,8 +3,11 @@ import Link from 'next/link';
 import NavLink from './NavLink';
 import { PrimaryButtonLink } from '../Button';
 import MobileMenuToggle from './MobileMenuToggle';
+import { useSession } from '../../hooks/auth';
+import { cx } from '../../utils/utils';
 
 export default function Header() {
+  const [user] = useSession();
   return (
     <div className="relative flex flex-col items-center justify-center w-full mx-auto">
       <div className="w-full px-4 py-5 mx-auto md:px-24 lg:px-8 bg-gray-100">
@@ -25,11 +28,13 @@ export default function Header() {
               <NavLink href="#blog">Blog</NavLink>
             </li>
             <li>
-              <NavLink href="/dashboard/login">Login</NavLink>
+              <NavLink href="https://github.com/jamesb3ll/tracio.io">GitHub</NavLink>
             </li>
             <li>
-              <Link href="/dashboard" passHref>
-                <PrimaryButtonLink className="shadow-md">Dashboard</PrimaryButtonLink>
+              <Link href={!user ? '/login' : '/dashboard'} passHref>
+                <PrimaryButtonLink className={cx('shadow-md', !user && 'px-11')}>
+                  {!user ? 'Login' : 'Dashboard'}
+                </PrimaryButtonLink>
               </Link>
             </li>
           </ul>

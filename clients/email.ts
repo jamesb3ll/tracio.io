@@ -14,14 +14,16 @@ export async function sendSignUpEmail({
 export async function sendWelcomeEmail({
   name,
   email,
+  teamId,
   token,
 }: {
   name: string;
   email: string;
+  teamId: string;
   token: string;
 }) {
   console.log('sendWelcomeEmail');
-  console.log({ name, email, token });
+  console.log({ name, email, teamId, token });
 }
 export async function sendLoginEmail({
   name,

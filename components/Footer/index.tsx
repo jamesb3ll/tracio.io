@@ -123,7 +123,9 @@ export default function Footer() {
                 lg:flex-row
               "
         >
-          <p className="text-sm text-gray-700">© Copyright 2021 tracio. All rights reserved.</p>
+          <p className="text-sm text-gray-700">
+            © Copyright {new Date().getFullYear()} tracio. All rights reserved.
+          </p>
           <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
             {/* <li>
                   <a

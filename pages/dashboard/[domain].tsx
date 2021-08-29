@@ -8,8 +8,10 @@ import { PrimaryButton } from '../../components/Button';
 import Logo from '../../components/Header/Logo';
 import { cx } from '../../utils/utils';
 import Footer from '../../components/Footer';
+import { logout, useSession } from '../../hooks/auth';
 
 export default function Dashboard() {
+  const [user, loading] = useSession();
   const { query } = useRouter();
   const { domain } = query;
 
@@ -61,7 +63,7 @@ export default function Dashboard() {
                   />
                 </a> */}
                 <button className="flex items-center text-gray-500 dark:text-white text-md">
-                  Alex Doe
+                  {user && user.name}
                   <svg
                     width="20"
                     height="20"
@@ -72,6 +74,13 @@ export default function Dashboard() {
                   >
                     <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
                   </svg>
+                </button>
+                <span className="w-1 h-8 rounded bg-gray-200"></span>
+                <button
+                  className="flex items-center text-gray-500 dark:text-white text-md"
+                  onClick={logout}
+                >
+                  Log out
                 </button>
               </div>
             </div>

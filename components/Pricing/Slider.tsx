@@ -66,7 +66,7 @@ export default function Slider() {
             {cost}
           </p>
           {value !== 0 && value !== plans.length - 1 && (
-            <p className="text-sm font-bold tracking-wider uppercase mt-1">USD</p>
+            <p className="text-sm font-bold tracking-wider mt-1">USD</p>
           )}
         </div>
       </div>

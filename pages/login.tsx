@@ -1,9 +1,102 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useReducer, useState } from 'react';
 import Logo from '../components/Header/Logo';
+import { login, useSession } from '../hooks/auth';
+
+interface LoginState {
+  isLoading: boolean;
+  emailSent: boolean;
+  error?: string;
+}
+
+type ActionType =
+  | { type: 'reset' }
+  | { type: 'fetching' }
+  | { type: 'success' }
+  | { type: 'error'; payload: string };
+
+const initialState = {
+  isLoading: false,
+  emailSent: false,
+};
+
+function loginReducer(state: LoginState, action: ActionType) {
+  switch (action.type) {
+    case 'reset':
+      return initialState as LoginState;
+    case 'fetching':
+      return { isLoading: true, emailSent: false };
+    case 'error':
+      return { isLoading: false, error: action.payload, emailSent: false };
+    case 'success':
+      return { isLoading: false, emailSent: true };
+    default:
+      return state;
+  }
+}
 
 export default function Login() {
-  const [isSignUp, setSignUp] = useState(false);
+  const router = useRouter();
+  const [user] = useSession();
+  const [{ isLoading, error, emailSent }, dispatch] = useReducer(loginReducer, initialState);
+
+  useEffect(() => {
+    if (user) router.push('/dashboard');
+    if (typeof router.query.error === 'string') {
+      dispatch({ type: 'error', payload: router.query.error });
+    }
+  }, [router, user]);
+
+  async function handleSubmit(event: React.SyntheticEvent) {
+    event.preventDefault();
+    const { email } = event.target as typeof event.target & {
+      email: { value: string };
+    };
+
+    dispatch({ type: 'fetching' });
+    try {
+      const { success, error } = await login(email.value);
+      if (success) {
+        dispatch({ type: 'success' });
+      } else {
+        dispatch({ type: 'error', payload: error! });
+      }
+    } catch (error) {
+      dispatch({ type: 'error', payload: 'Something went wrong.' });
+    }
+  }
+
+  if (emailSent) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <div className="flex justify-center">
+              <Link href="/">
+                <a>
+                  <Logo />
+                </a>
+              </Link>
+            </div>
+            <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">
+              Check your email inbox
+            </h2>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              If you didn't receive an email,{' '}
+              <button
+                onClick={() => dispatch({ type: 'reset' })}
+                className="font-medium text-brand-500 hover:text-brand-400"
+              >
+                try login again
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -16,22 +109,26 @@ export default function Login() {
             </Link>
           </div>
           <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">
-            {isSignUp ? 'Create your account' : 'Log in to your account'}
+            Log in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
-            <button
-              className="font-medium text-brand-500 hover:text-brand-400"
-              onClick={() => setSignUp(t => !t)}
-            >
-              {isSignUp ? 'log in to your account' : 'create your account'}
-            </button>
+            <Link href="/">
+              <a className="font-medium text-brand-500 hover:text-brand-400">create an account</a>
+            </Link>
           </p>
         </div>
-        <form className="mt-8" action="#" method="POST">
+        {error && (
+          <div
+            className="relative py-2 px-3 text-sm leading-normal text-red-700 bg-red-100 rounded-lg"
+            role="alert"
+          >
+            <p>Error: {error}</p>
+          </div>
+        )}
+        <form className="mt-8" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm mb-4">
-            {isSignUp && (
-              <div className="mb-4">
+            {/* <div className="mb-4">
                 <label htmlFor="name" className="block text-sm font-medium mb-1 text-gray-700">
                   Name
                 </label>
@@ -44,8 +141,8 @@ export default function Login() {
                   placeholder="Alex Doe"
                   required
                 />
-              </div>
-            )}
+              </div> */}
+
             <div>
               <label
                 htmlFor="email-address"
@@ -54,13 +151,14 @@ export default function Login() {
                 Email address
               </label>
               <input
+                autoFocus
                 id="email-address"
                 name="email"
                 type="email"
                 autoComplete="email"
-                required
                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-brand-500 focus:border-brand-500 focus:z-10 sm:text-sm"
                 placeholder="email@address.com"
+                required
               />
             </div>
           </div>
@@ -89,6 +187,7 @@ export default function Login() {
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-brand-500 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500"
+              disabled={isLoading}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <svg
@@ -105,7 +204,7 @@ export default function Login() {
                   />
                 </svg>
               </span>
-              {isSignUp ? 'Create account' : 'Log in'}
+              {isLoading ? 'Loading...' : 'Log in'}
             </button>
           </div>
         </form>
