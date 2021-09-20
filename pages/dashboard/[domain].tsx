@@ -9,11 +9,16 @@ import Logo from '../../components/Header/Logo';
 import { cx } from '../../utils/utils';
 import Footer from '../../components/Footer';
 import { logout, useSession } from '../../hooks/auth';
+import SignupForm from '../../components/SignupForm';
 
 export default function Dashboard() {
   const [user, loading] = useSession();
   const { query } = useRouter();
   const { domain } = query;
+
+  if (loading || !domain) {
+    return null;
+  }
 
   return (
     <div className="w-full mx-auto">
@@ -688,64 +693,24 @@ function Chart({ domain, blur = false }: { domain: string; blur?: boolean }) {
               Try it out, no sign-up or credit card required
             </h3>
             <p className="text-sm">
-              Paste this code on your website to view your live traffic instantly with a limited
-              dashboard. We'll analyze your traffic and estimate your monthly costs.
+              Paste this code on your website to view your live traffic instantly within this
+              dashboard.
+              <br />
+              We'll analyze your traffic and estimate your monthly costs.
             </p>
-            <pre className="bg-gray-800 text-white p-3 overflow-scroll">
-              {`<script src="https://tra.ci/o.js" data-domain="${domain}"></script>`}
+            <pre className="bg-gray-800 text-white p-3 overflow-scroll rounded">
+              <span className="text-brand-400">{'<script '}</span>
+              <span className="text-yellow-400">src=</span>
+              <span className="text-green-400">{`"https://tra.ci/o.js" `}</span>
+              <span className="text-yellow-400">data-domain=</span>
+              <span className="text-green-400">{`"${domain}"`}</span>
+              <span className="text-brand-400">{'></script>'}</span>
             </pre>
           </div>
           <div className="flex items-center justify-center my-4 mx-auto w-full md:w-1/2">
             <div className="flex-1 border-t-2 border-gray-200"></div>
           </div>
-          <form className="space-y-2 text-gray-700 w-1/2">
-            <h3 className="text-lg font-semibold tracking-wide">
-              Get full access by creating an account
-            </h3>
-            <p className="text-sm">
-              You'll only be charged based on your usage at the end of every month.
-            </p>
-            <div className="flex flex-wrap -mx-2 space-y-4 md:space-y-0">
-              <div className="w-full px-2 md:w-1/2">
-                <label className="block mb-1" htmlFor="formGridCode_name">
-                  First name
-                </label>
-                <input
-                  className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_name"
-                  placeholder="Alex Doe"
-                />
-              </div>
-              <div className="w-full px-2 md:w-1/2">
-                <label className="block mb-1" htmlFor="formGridCode_last">
-                  Email
-                </label>
-                <input
-                  className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_last"
-                  placeholder="your@email.com"
-                />
-              </div>
-            </div>
-            <div className="flex flex-wrap">
-              <div className="w-full">
-                <label className="block mb-1" htmlFor="formGridCode_card">
-                  Card number
-                </label>
-                <input
-                  className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
-                  type="text"
-                  id="formGridCode_card"
-                  placeholder="XXXX XXXX XXXX XXXX"
-                />
-              </div>
-            </div>
-            <PrimaryButton className="w-full h-8 px-3 font-normal text-sm">
-              Create Account
-            </PrimaryButton>
-          </form>
+          <SignupForm />
         </div>
       )}
       <div className={cx('dark:text-white', blur && 'blur-sm opacity-50 z-10')}>
