@@ -80,6 +80,47 @@ export default function Features() {
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8 text-brand-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            }
+            title="Transparent pricing"
+          >
+            With a free threshold of 5000 visits per month, it's perfect for indie developers and
+            small companies looking to track their success without breaking the bank.
+          </Feature>
+
+          <Feature
+            icon={
+              <svg stroke="currentColor" viewBox="0 0 52 52" className="w-10 h-10 text-brand-500">
+                <polygon
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                  points="29 13 14 29 25 29 23 39 38 23 27 23"
+                ></polygon>
+              </svg>
+            }
+            title="Fast and lightweight"
+          >
+            No heavy scripts that will slow down page load times. Our lightweight open-source script
+            can be installed with just a single line of code added to your site.
+          </Feature>
+
+          <Feature
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
                 className="w-6 h-6 text-brand-500"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -154,45 +195,6 @@ export default function Features() {
             .
           </Feature>
 
-          <Feature
-            icon={
-              <svg stroke="currentColor" viewBox="0 0 52 52" className="w-10 h-10 text-brand-500">
-                <polygon
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                  points="29 13 14 29 25 29 23 39 38 23 27 23"
-                ></polygon>
-              </svg>
-            }
-            title="Fast and lightweight"
-          >
-            No heavy scripts that will slow down page load times. Our lightweight open-source script
-            can be installed with just a single line of code added to your site.
-          </Feature>
-          <Feature
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 text-brand-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            }
-            title="Transparent pricing"
-          >
-            With a free threshold of 5000 visits per month, it's perfect for indie developers and
-            small companies looking to track their success without breaking the bank.
-          </Feature>
           <Feature
             icon={
               <svg

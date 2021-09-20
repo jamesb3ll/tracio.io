@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Fragment, ReactNode, useCallback, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import LineChart from 'react-svg-line-chart';
-import { PrimaryButton } from '../../components/Button';
+import { PrimaryButton, SecondaryButton } from '../../components/Button';
 import Logo from '../../components/Header/Logo';
 import { cx } from '../../utils/utils';
 import Footer from '../../components/Footer';
@@ -30,58 +30,74 @@ export default function Dashboard() {
             </Link>
             <div className="relative z-20 flex flex-col justify-end h-full px-3 md:w-full">
               <div className="relative p-1 flex items-center w-full space-x-4 justify-end">
-                <button className="flex p-2 items-center rounded-full text-gray-400 hover:text-gray-700 bg-white shadow text-md">
-                  <svg
-                    width="20"
-                    height="20"
-                    className=""
-                    fill="currentColor"
-                    viewBox="0 0 1792 1792"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M1520 1216q0-40-28-68l-208-208q-28-28-68-28-42 0-72 32 3 3 19 18.5t21.5 21.5 15 19 13 25.5 3.5 27.5q0 40-28 68t-68 28q-15 0-27.5-3.5t-25.5-13-19-15-21.5-21.5-18.5-19q-33 31-33 73 0 40 28 68l206 207q27 27 68 27 40 0 68-26l147-146q28-28 28-67zm-703-705q0-40-28-68l-206-207q-28-28-68-28-39 0-68 27l-147 146q-28 28-28 67 0 40 28 68l208 208q27 27 68 27 42 0 72-31-3-3-19-18.5t-21.5-21.5-15-19-13-25.5-3.5-27.5q0-40 28-68t68-28q15 0 27.5 3.5t25.5 13 19 15 21.5 21.5 18.5 19q33-31 33-73zm895 705q0 120-85 203l-147 146q-83 83-203 83-121 0-204-85l-206-207q-83-83-83-203 0-123 88-209l-88-88q-86 88-208 88-120 0-204-84l-208-208q-84-84-84-204t85-203l147-146q83-83 203-83 121 0 204 85l206 207q83 83 83 203 0 123-88 209l88 88q86-88 208-88 120 0 204 84l208 208q84 84 84 204z"></path>
-                  </svg>
-                </button>
-                <button className="flex p-2 items-center rounded-full bg-white shadow text-gray-400 hover:text-gray-700 text-md">
-                  <svg
-                    width="20"
-                    height="20"
-                    className="text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 1792 1792"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M912 1696q0-16-16-16-59 0-101.5-42.5t-42.5-101.5q0-16-16-16t-16 16q0 73 51.5 124.5t124.5 51.5q16 0 16-16zm816-288q0 52-38 90t-90 38h-448q0 106-75 181t-181 75-181-75-75-181h-448q-52 0-90-38t-38-90q50-42 91-88t85-119.5 74.5-158.5 50-206 19.5-260q0-152 117-282.5t307-158.5q-8-19-8-39 0-40 28-68t68-28 68 28 28 68q0 20-8 39 190 28 307 158.5t117 282.5q0 139 19.5 260t50 206 74.5 158.5 85 119.5 91 88z"></path>
-                  </svg>
-                </button>
-                <span className="w-1 h-8 rounded-lg bg-gray-200"></span>
-                {/* <a href="#" className="block relative">
+                {user ? (
+                  <>
+                    <button className="flex p-2 items-center rounded-full text-gray-400 hover:text-gray-700 bg-white shadow text-md">
+                      <svg
+                        width="20"
+                        height="20"
+                        className=""
+                        fill="currentColor"
+                        viewBox="0 0 1792 1792"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M1520 1216q0-40-28-68l-208-208q-28-28-68-28-42 0-72 32 3 3 19 18.5t21.5 21.5 15 19 13 25.5 3.5 27.5q0 40-28 68t-68 28q-15 0-27.5-3.5t-25.5-13-19-15-21.5-21.5-18.5-19q-33 31-33 73 0 40 28 68l206 207q27 27 68 27 40 0 68-26l147-146q28-28 28-67zm-703-705q0-40-28-68l-206-207q-28-28-68-28-39 0-68 27l-147 146q-28 28-28 67 0 40 28 68l208 208q27 27 68 27 42 0 72-31-3-3-19-18.5t-21.5-21.5-15-19-13-25.5-3.5-27.5q0-40 28-68t68-28q15 0 27.5 3.5t25.5 13 19 15 21.5 21.5 18.5 19q33-31 33-73zm895 705q0 120-85 203l-147 146q-83 83-203 83-121 0-204-85l-206-207q-83-83-83-203 0-123 88-209l-88-88q-86 88-208 88-120 0-204-84l-208-208q-84-84-84-204t85-203l147-146q83-83 203-83 121 0 204 85l206 207q83 83 83 203 0 123-88 209l88 88q86-88 208-88 120 0 204 84l208 208q84 84 84 204z"></path>
+                      </svg>
+                    </button>
+                    <button className="flex p-2 items-center rounded-full bg-white shadow text-gray-400 hover:text-gray-700 text-md">
+                      <svg
+                        width="20"
+                        height="20"
+                        className="text-gray-400"
+                        fill="currentColor"
+                        viewBox="0 0 1792 1792"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M912 1696q0-16-16-16-59 0-101.5-42.5t-42.5-101.5q0-16-16-16t-16 16q0 73 51.5 124.5t124.5 51.5q16 0 16-16zm816-288q0 52-38 90t-90 38h-448q0 106-75 181t-181 75-181-75-75-181h-448q-52 0-90-38t-38-90q50-42 91-88t85-119.5 74.5-158.5 50-206 19.5-260q0-152 117-282.5t307-158.5q-8-19-8-39 0-40 28-68t68-28 68 28 28 68q0 20-8 39 190 28 307 158.5t117 282.5q0 139 19.5 260t50 206 74.5 158.5 85 119.5 91 88z"></path>
+                      </svg>
+                    </button>
+                    <span className="w-1 h-8 rounded-lg bg-gray-200"></span>
+                    {/* <a href="#" className="block relative">
                   <img
                     alt="profil"
                     src="/images/person/1.jpg"
                     className="mx-auto object-cover rounded-full h-10 w-10 "
                   />
                 </a> */}
-                <button className="flex items-center text-gray-500 dark:text-white text-md">
-                  {user && user.name}
-                  <svg
-                    width="20"
-                    height="20"
-                    className="ml-2 text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 1792 1792"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
-                  </svg>
-                </button>
+                    <button className="flex items-center text-gray-500 dark:text-white text-md">
+                      {user.name}
+                      <svg
+                        width="20"
+                        height="20"
+                        className="ml-2 text-gray-400"
+                        fill="currentColor"
+                        viewBox="0 0 1792 1792"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
+                      </svg>
+                    </button>
+                  </>
+                ) : (
+                  <Link href="/">
+                    <a className="flex items-center text-gray-500 dark:text-white text-md">Home</a>
+                  </Link>
+                )}
                 <span className="w-1 h-8 rounded bg-gray-200"></span>
-                <button
-                  className="flex items-center text-gray-500 dark:text-white text-md"
-                  onClick={logout}
-                >
-                  Log out
-                </button>
+                {user ? (
+                  <button
+                    className="flex items-center text-gray-500 dark:text-white text-md"
+                    onClick={logout}
+                  >
+                    Log out
+                  </button>
+                ) : (
+                  <Link href="/login">
+                    <a className="flex items-center text-gray-500 dark:text-white text-md">
+                      Log in
+                    </a>
+                  </Link>
+                )}
               </div>
             </div>
           </header>
@@ -103,26 +119,59 @@ export default function Dashboard() {
             </div>
             <div className="flex my-6 items-center w-full space-y-4 md:space-x-4 md:space-y-0 flex-col md:flex-row">
               <div className="flex items-center w-full flex-wrap md:flex-nowrap md:space-x-4">
-                <div className="w-full xs:w-1/2 md:w-1/4">
-                  <Stat name="Unique Visits" amount="843" difference={2} />
-                </div>
-                <div className="w-full xs:w-1/2 md:w-1/4">
-                  <Stat name="Total Visits" amount="1346" difference={-5} />
-                </div>
-                <div className="w-full xs:w-1/2 md:w-1/4">
-                  <Stat name="Bounce rate" amount="82%" difference={-8} invert />
-                </div>
-                <div className="w-full xs:w-1/2 md:w-1/4">
-                  <Stat name="Visit duration" amount="2:54" difference={-3} />
-                </div>
+                {user ? (
+                  <>
+                    <div className="w-full xs:w-1/2 md:w-1/4">
+                      <Stat name="Unique Visits" amount="843" difference={2} />
+                    </div>
+                    <div className="w-full xs:w-1/2 md:w-1/4">
+                      <Stat name="Total Visits" amount="1346" difference={-5} />
+                    </div>
+                    <div className="w-full xs:w-1/2 md:w-1/4">
+                      <Stat name="Bounce rate" amount="82%" difference={-8} invert />
+                    </div>
+                    <div className="w-full xs:w-1/2 md:w-1/4">
+                      <Stat name="Visit duration" amount="2:54" difference={-3} />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-full xs:w-1/2 md:w-1/4">
+                      <Stat name="Unique Visits" amount="0" />
+                    </div>
+                    <div className="w-full xs:w-1/2 md:w-1/4">
+                      <Stat name="Total Visits" amount="0" />
+                    </div>
+                    <div className="w-full xs:w-1/2 md:w-1/4">
+                      <Stat name="Bounce rate" amount="0%" />
+                    </div>
+                    <div className="w-full xs:w-1/2 md:w-1/4">
+                      <Stat name="Visit duration" amount="0:00" />
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             <div className="shadow-sm px-4 py-6 w-full bg-white dark:bg-gray-700">
-              <Chart />
+              <Chart blur={!user} domain={domain} />
             </div>
+            {!user && (
+              <div
+                className="flex mt-4 p-6 leading-normal text-brand-700 bg-brand-200 rounded-lg"
+                role="alert"
+              >
+                <div className="w-2/3">
+                  <p className="font-bold text-lg">Add tracio to your website</p>
+                  <p>Get all the insights you need without sacraficing customer privacy</p>
+                </div>
+                <SecondaryButton className="w-1/3 h-12 px-3 font-normal text-sm">
+                  Sign up now
+                </SecondaryButton>
+              </div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
               <Sources
-                blur={false}
+                blur={!user}
                 data={[
                   ['google.com', 'Google', 5000],
                   ['twitter.com', 'Twitter', 3000],
@@ -133,15 +182,16 @@ export default function Dashboard() {
                 ]}
               />
               <Pages
-                blur={false}
+                blur={!user}
                 data={[
                   ['/', 2480],
                   ['/login', 732],
                   ['/about', 309],
+                  ['/contact', 121],
                 ]}
               />
               <Countries
-                blur={false}
+                blur={!user}
                 data={[
                   ['au', 'Australia', 2480],
                   ['pt', 'Portugal', 732],
@@ -150,7 +200,7 @@ export default function Dashboard() {
                 ]}
               />
               <Devices
-                blur={false}
+                blur={!user}
                 data={[
                   ['Mobile', 2480],
                   ['Desktop', 732],
@@ -170,12 +220,12 @@ export default function Dashboard() {
 function Stat({
   name,
   amount,
-  difference,
+  difference = 0,
   invert = false,
 }: {
   name: string;
   amount: string;
-  difference: number;
+  difference?: number;
   invert?: boolean;
 }) {
   const isPositiveDifference = Math.sign(difference) === 1;
@@ -399,7 +449,7 @@ function Devices({ data, blur = false }: { data: Array<[string, number]>; blur?:
       </p>
       {blur && (
         <div className="absolute w-full h-full flex flex-col items-center justify-center top-4 left-0">
-          <p className="text-lg mb-3">Are your customer's mobile users or desktop?</p>
+          <p className="text-lg mb-3">Are your customers mobile users or desktop?</p>
           <PrimaryButton className="h-8 px-3 font-normal text-sm">Find out</PrimaryButton>
         </div>
       )}
@@ -618,7 +668,7 @@ function TimeSelector() {
 }
 
 // https://github.com/cedricdelpoux/react-svg-line-chart
-function Chart() {
+function Chart({ domain, blur = false }: { domain: string; blur?: boolean }) {
   const [{ tooltipTrigger, point }, setTooltipData] = useState<{
     tooltipTrigger?: DOMRect | null;
     point?: { x: number; y: number } | null;
@@ -631,48 +681,121 @@ function Chart() {
   }, []);
   return (
     <div className="relative">
-      {tooltipTrigger && point && (
-        <span
-          className="fixed rounded shadow-lg px-2 py-1 bg-gray-100 text-brand-500 font-semibold -mt-8"
-          style={{
-            top: tooltipTrigger.top + 'px',
-            left: tooltipTrigger.left - (tooltipTrigger.right - tooltipTrigger.left) / 2 + 'px',
-          }}
-        >
-          {point.y} visits
-        </span>
+      {blur && (
+        <div className="absolute w-full h-full flex flex-col items-center justify-center top-0 left-0 z-20">
+          <div className="space-y-2 text-gray-700 w-1/2 mb-2">
+            <h3 className="text-lg font-semibold tracking-wide">
+              Try it out, no sign-up or credit card required
+            </h3>
+            <p className="text-sm">
+              Paste this code on your website to view your live traffic instantly with a limited
+              dashboard. We'll analyze your traffic and estimate your monthly costs.
+            </p>
+            <pre className="bg-gray-800 text-white p-3 overflow-scroll">
+              {`<script src="https://tra.ci/o.js" data-domain="${domain}"></script>`}
+            </pre>
+          </div>
+          <div className="flex items-center justify-center my-4 mx-auto w-full md:w-1/2">
+            <div className="flex-1 border-t-2 border-gray-200"></div>
+          </div>
+          <form className="space-y-2 text-gray-700 w-1/2">
+            <h3 className="text-lg font-semibold tracking-wide">
+              Get full access by creating an account
+            </h3>
+            <p className="text-sm">
+              You'll only be charged based on your usage at the end of every month.
+            </p>
+            <div className="flex flex-wrap -mx-2 space-y-4 md:space-y-0">
+              <div className="w-full px-2 md:w-1/2">
+                <label className="block mb-1" htmlFor="formGridCode_name">
+                  First name
+                </label>
+                <input
+                  className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  id="formGridCode_name"
+                  placeholder="Alex Doe"
+                />
+              </div>
+              <div className="w-full px-2 md:w-1/2">
+                <label className="block mb-1" htmlFor="formGridCode_last">
+                  Email
+                </label>
+                <input
+                  className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  id="formGridCode_last"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+            <div className="flex flex-wrap">
+              <div className="w-full">
+                <label className="block mb-1" htmlFor="formGridCode_card">
+                  Card number
+                </label>
+                <input
+                  className="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                  type="text"
+                  id="formGridCode_card"
+                  placeholder="XXXX XXXX XXXX XXXX"
+                />
+              </div>
+            </div>
+            <PrimaryButton className="w-full h-8 px-3 font-normal text-sm">
+              Create Account
+            </PrimaryButton>
+          </form>
+        </div>
       )}
-      {typeof window !== 'undefined' && (
-        <LineChart
-          data={[
-            { x: 1, y: 10 },
-            { x: 2, y: 4 },
-            { x: 3, y: 9 },
-            { x: 4, y: 12 },
-            { x: 5, y: 18 },
-            { x: 6, y: 0 },
-            { x: 7, y: 2 },
-          ]}
-          pointsStrokeColor="#4578C8"
-          pathColor="#4578C8"
-          areaColor="#4578C8"
-          areaVisible
-          gridVisible={false}
-          axisVisible
-          labelsVisible
-          pathVisible
-          pointsVisible
-          pointsRadius={8}
-          labelsStepX={1}
-          labelsFormatX={(x: number) =>
-            new Date(Date.now() + x * 86400000).toString().split(' ')[0]
-          }
-          viewBoxHeight={window.innerHeight}
-          viewBoxWidth={window.innerWidth * 1.5}
-          // pointsIsHoverOnZone={true}
-          pointsOnHover={handlePointHover}
-        />
-      )}
+      <div className={cx('dark:text-white', blur && 'blur-sm opacity-50 z-10')}>
+        {tooltipTrigger && point && (
+          <span
+            className="fixed rounded shadow-lg px-2 py-1 bg-gray-100 text-brand-500 font-semibold -mt-8"
+            style={{
+              top: tooltipTrigger.top + 'px',
+              left: tooltipTrigger.left - (tooltipTrigger.right - tooltipTrigger.left) / 2 + 'px',
+            }}
+          >
+            {point.y} visits
+          </span>
+        )}
+        {typeof window !== 'undefined' && (
+          <LineChart
+            data={
+              blur
+                ? Array.from({ length: 6 }).map((_, i) => ({ x: i, y: 0 }))
+                : [
+                    { x: 1, y: 10 },
+                    { x: 2, y: 4 },
+                    { x: 3, y: 9 },
+                    { x: 4, y: 12 },
+                    { x: 5, y: 18 },
+                    { x: 6, y: 0 },
+                    { x: 7, y: 2 },
+                  ]
+            }
+            pointsStrokeColor="#4578C8"
+            pathColor="#4578C8"
+            areaColor="#4578C8"
+            areaVisible
+            gridVisible={false}
+            axisVisible
+            labelsVisible
+            pathVisible
+            pointsVisible
+            pointsRadius={8}
+            labelsStepX={1}
+            labelsFormatX={(x: number) =>
+              new Date(Date.now() + x * 86400000).toString().split(' ')[0]
+            }
+            viewBoxHeight={window.innerHeight * 1.125}
+            viewBoxWidth={window.innerWidth * 1.5}
+            // pointsIsHoverOnZone={true}
+            pointsOnHover={handlePointHover}
+          />
+        )}
+      </div>
     </div>
   );
 }

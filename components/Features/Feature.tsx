@@ -26,14 +26,15 @@ export default function Feature({ icon, title, link, children }: PropsWithChildr
           {icon}
         </div>
       </div>
-      <div>
-        <h6 className="mb-3 text-xl font-bold leading-5 text-gray-900">{title}</h6>
-        <p className="mb-3 text-sm text-gray-700">{children}</p>
-      </div>
-      {link && (
-        <Link href={link}>
-          <a
-            className="
+      <div className="flex flex-col">
+        <div>
+          <h6 className="mb-3 text-xl font-bold leading-5 text-gray-900">{title}</h6>
+          <p className="mb-3 text-sm text-gray-700">{children}</p>
+        </div>
+        {link && (
+          <Link href={link}>
+            <a
+              className="
             inline-flex
             items-center
             font-semibold
@@ -42,11 +43,12 @@ export default function Feature({ icon, title, link, children }: PropsWithChildr
             duration-200
             hover:text-brand-500
           "
-          >
-            Learn more
-          </a>
-        </Link>
-      )}
+            >
+              Learn more
+            </a>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }

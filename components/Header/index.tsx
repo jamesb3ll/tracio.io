@@ -31,10 +31,8 @@ export default function Header() {
               <NavLink href="https://github.com/jamesb3ll/tracio.io">GitHub</NavLink>
             </li>
             <li>
-              <Link href={!user ? '/login' : '/dashboard'} passHref>
-                <PrimaryButtonLink className={cx('shadow-md', !user && 'px-11')}>
-                  {!user ? 'Login' : 'Dashboard'}
-                </PrimaryButtonLink>
+              <Link href="/dashboard" passHref>
+                <PrimaryButtonLink className="shadow-md">Dashboard</PrimaryButtonLink>
               </Link>
             </li>
           </ul>
